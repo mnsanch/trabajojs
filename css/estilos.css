@@ -146,6 +146,11 @@ h3{
     height: 20px;
 }
 
+.estrella {
+    width: 50px;
+    height: 50px;
+}
+
 /* Clases colores */
 .editareliminar{
     color: #E61C23;
