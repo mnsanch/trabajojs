@@ -1,4 +1,4 @@
-var url = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${localStorage.getItem('pedido')}`;
+var url = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(localStorage.getItem('pedido'))}`;
 
 // Crear elemento img directamente
 const imgElement = document.createElement('img');

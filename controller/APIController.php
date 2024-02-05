@@ -11,7 +11,7 @@
 include_once 'modelo/ComentarioDAO.php';
 class APIController{    
  
-    public function mostrarcomentarios(){
+        public function mostrarcomentarios(){
             // Si quieres devolverle información al JS, codificas en json un array con la información
             // y se los devuelves al JS
             $comentarios = ComentarioDAO::mostrarcomentarios();
@@ -19,7 +19,38 @@ class APIController{
             echo json_encode($comentarios, JSON_UNESCAPED_UNICODE) ; 
 
             return; //return para salir de la funcion
+        }
 
-    }
+        public function añadircomentarios(){
+                // Si quieres devolverle información al JS, codificas en json un array con la información
+                // y se los devuelves al JS
+                $comentario = ComentarioDAO::guardarcomentarioo($w,$w,$w);
 
+                echo json_encode($comentario, JSON_UNESCAPED_UNICODE) ; 
+
+                return; //return para salir de la funcion
+        }
+
+
+        public function datosultimopedido() {
+                $pedidos = $_SESSION['selecciones'];
+                $array = [];
+            
+                foreach ($pedidos as $pedido) {
+            
+                    $array[] = [
+                        'ID_Producto' => $pedido->getProducto()->getIDProducto(),
+                        'ID_Categoria_Producto' => $pedido->getProducto()->getIDCategoriaProducto(),
+                        'Nombre_Producto' => $pedido->getProducto()->getNombreProducto(),
+                        'Precio_Producto' => $pedido->getProducto()->getPrecioProducto(),
+                        'Imagen_Producto' => $pedido->getProducto()->getImagenProducto(),
+                        'Descripcion' => $pedido->getProducto()->getDescripcion(),
+                        'cantidad' => $pedido->getCantidad(),
+                    ];
+                }
+            
+                echo json_encode($array, JSON_UNESCAPED_UNICODE);
+                return;
+            }
+            
 }
