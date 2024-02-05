@@ -5,6 +5,7 @@
     include_once 'controller/usuarioController.php';
     include_once 'controller/pedidoController.php';
     include_once 'controller/APIController.php';
+    include_once 'controller/comentarioController.php';
 
     if (!ISSET ($_GET['controller'])){
         //si no se pasa nada, se mostrara pagina principal de pedidos
