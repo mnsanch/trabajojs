@@ -129,8 +129,8 @@
             </form>
             <div class="col-0 col-sm-4"></div>
             <!-- Botón para finalizar el pedido -->
-            <form class="col-10 col-sm-4 pt-2" action="<?=url.'?controller=pedido&action=confirmar'?>" method="post"> 
-                <button class="botoncomprar negrita" type="submit">COMPRAR</button>
+            <form class="col-10 col-sm-4 pt-2" action="<?=url.'?controller=pedido&action=confirmar'?>" method=""> 
+                <button id="botonComprar" class="botoncomprar negrita" type="submit">COMPRAR</button>
             </form>
         </div>
         <?php
@@ -138,6 +138,32 @@
     ?>
     </section>
     
+    <script>
 
+document.getElementById("botonComprar").addEventListener("click", function () {
+    fetch('http://localhost/trabajojs/index.php?controller=API&action=si', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then(valores => {
+        // Extracting only the required fields
+        const simplifiedData = valores.map(({ ID_Categoria_Producto, Nombre_Producto, cantidad }) => ({
+            Nombre_Producto,
+            ID_Categoria_Producto,
+            cantidad,
+        }));
+
+        console.log('simplifiedData', simplifiedData);
+
+        // Storing the simplified data in local storage
+        localStorage.setItem('pedido', JSON.stringify(simplifiedData));
+    });
+});
+    </script>
 </body>
 </html>

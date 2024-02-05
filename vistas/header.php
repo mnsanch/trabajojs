@@ -36,6 +36,10 @@
                             <a class="nav-link active botonheader" aria-current="page"
                                 href="<?=url.'?controller=producto&action=productos'?>">PRODUCTOS</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link active botonheader" aria-current="page"
+                                href="<?=url.'?controller=comentario&action=mostrarcomentario'?>">COMENTARIOS</a>
+                        </li>
                         <!-- Botón de la cesta -->
                         <li class="nav-item">
                             <a class="nav-link active botonheader" aria-current="page" href="<?=url.'?controller=producto&action=compra'?>">

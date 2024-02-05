@@ -1,3 +1,5 @@
+// array
+
 document.querySelectorAll('input[type=checkbox]').forEach(function (checkbox) {
     checkbox.addEventListener('change', function () {
         var alMenosUnCheckboxSeleccionado = false;
