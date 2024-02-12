@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    let comentarios = ""
     fetch('http://localhost/trabajojs/index.php?controller=API&action=mostrarcomentarios', {
             method: 'POST',
             headers: {
@@ -10,19 +11,19 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(valores => {
             comentarios = valores;
-            const comentariosValoracion3 = comentarios.filter(valores => valores.Valoracion === "3");
+            // const comentariosValoracion3 = comentarios.filter(valores => valores.Valoracion == "3");
 
 // Mostrar los comentarios filtrados en la consola
-console.log(comentariosValoracion3);
-            mostrarcomentarios();
+// console.log(comentariosValoracion3);
+            mostrarcomentarios(valores);
         })
 
-        function mostrarcomentarios(){
+        function mostrarcomentarios(valores){
             let seccion = document.getElementById('contenedor');
             seccion.innerHTML = '';
 
             // Agrega los comentarios ordenados a la sección 'contenedor'
-            comentarios.forEach(comentario => {
+            valores.forEach(valores => {
                 let div = document.createElement("article");
                 div.className = "contenedorlogin col-10 mb-4";
                 seccion.appendChild(div);
@@ -32,9 +33,9 @@ console.log(comentariosValoracion3);
                 let valoracionElemento = document.createElement('p');
                 let comentariosElemento = document.createElement('p');
 
-                nombre.innerHTML = comentario["Nombre_Usuario"];
-                valoracionElemento.innerHTML = comentario["Valoracion"];
-                comentariosElemento.innerHTML = comentario["Comentario"];
+                nombre.innerHTML = valores["Nombre_Usuario"];
+                valoracionElemento.innerHTML = valores["Valoracion"];
+                comentariosElemento.innerHTML = valores["Comentario"];
 
                 div.appendChild(nombre);
                 div.appendChild(comentariosElemento);
@@ -42,14 +43,14 @@ console.log(comentariosValoracion3);
                 let imagenes = document.createElement("div");
                 div.appendChild(imagenes);
 
-                for (let i = 0; i < comentario["Valoracion"]; i++) {
+                for (let i = 0; i < valores["Valoracion"]; i++) {
                     let valoracionElemento = document.createElement('img');
                     valoracionElemento.src = "Imagenes/Iconos/estrellarellena.svg";
                     valoracionElemento.className = "estrella";
                     imagenes.appendChild(valoracionElemento);
                 }
 
-                let estrellavacia = 5 - comentario["Valoracion"];
+                let estrellavacia = 5 - valores["Valoracion"];
                 for (let i = 0; i < estrellavacia; i++) {
                     let valoracionElemento = document.createElement('img');
                     valoracionElemento.src = "Imagenes/Iconos/estrella.svg";
@@ -78,11 +79,11 @@ console.log(comentariosValoracion3);
         }
         document.getElementById('ascendente').addEventListener('click', function(){
             ordenar();
-            mostrarcomentarios();
+            mostrarcomentarios(comentarios);
         })
         document.getElementById('descendente').addEventListener('click', function(){
             ordenar();
-            mostrarcomentarios();
+            mostrarcomentarios(comentarios);
         })
 
         document.getElementById('usuario').addEventListener('change', function () {
@@ -100,7 +101,7 @@ console.log(comentariosValoracion3);
                 .then(valores => {
                     comentarios = valores;
 
-                    mostrarcomentarios();
+                    mostrarcomentarios(valores);
                 })
             }else if (usuario == 'Anonimo') {
                 fetch('http://localhost/trabajojs/index.php?controller=API&action=mostrarcomentariosanonimos', {
@@ -115,7 +116,7 @@ console.log(comentariosValoracion3);
                 .then(valores => {
                     comentarios = valores;
                     
-                    mostrarcomentarios();
+                    mostrarcomentarios(valores);
                 })
             }else if (usuario == 'Validado') {
                 fetch('http://localhost/trabajojs/index.php?controller=API&action=mostrarcomentariosvalidados', {
@@ -130,9 +131,45 @@ console.log(comentariosValoracion3);
                 .then(valores => {
                     comentarios = valores;
                     
-                    mostrarcomentarios();
+                    mostrarcomentarios(valores);
                 })
             }
+        });
+
+        const checkboxes = document.querySelectorAll('input[type="checkbox"][name="estrella"]');
+        let estrellasSeleccionadas = [];
+    
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const valor = parseInt(this.value);
+                if (this.checked) {
+                    estrellasSeleccionadas.push(valor);
+                } else {
+                    estrellasSeleccionadas = estrellasSeleccionadas.filter(item => item !== valor);
+                }
+                estrellasSeleccionadas.sort((a, b) => a - b); // Ordenar el array
+    
+                // Aquí aplicamos el filtrado de comentarios con la nueva array de estrellas seleccionadas
+                valores = comentarios.filter(sol => estrellasSeleccionadas.includes(parseInt(sol.Valoracion)));
+                mostrarcomentarios(valores);
+                if (valores.length == 0) {
+                    fetch('http://localhost/trabajojs/index.php?controller=API&action=mostrarcomentarios', {
+                        method: 'POST',
+                        headers: {
+                            'Content-type': 'application/json; charset=UTF-8',
+                        },
+                    })
+                    .then(response => {
+                        return response.json();
+                    })
+                    .then(valores => {
+                        comentarios = valores;
+    
+                        mostrarcomentarios(valores);
+                    })                }
+
+                console.log(valores);
+            });
         });
         
 });
