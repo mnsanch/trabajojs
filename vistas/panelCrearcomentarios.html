@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Restaurante Cosmocaixa Productos</title>
+    <meta charset="UTF-8" lang="es" author="Marc Nicolás">
+    <meta name="title" content="Restaurante Cosmocaixa">
+    <meta name="description" content="Descripción de la WEB">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="css/estilos.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="CircularSTD contenedorlogin separacionprincipal col-10 col-sm-5">
+        <p class="logo"></p>
+        <!-- <form action="<?=url.'?controller=usuafrio&action=crearsesion'?>" method="post"> -->
+          
+          <!-- Campos de formulario para añadir al usuario -->
+          <label for="nombre">Nombre:</label>
+          <select class="inputlogin" id="nombre" name="nombre" required>
+            <option>Anonimo</option>
+          </select>   
+    
+          <label class="separacionsecundaria" for="comentario">Comentario:</label>
+          <input class="inputlogin" type="text" id="comentario" name="comentario" required>
+
+          <label class="separacionsecundaria" for="valoracion">valoracion:</label>
+          <div class="valoracion d-flex flex-row-reverse justify-content-end">
+            <input type="radio" id="e5" name="puntuacion" value="5" hidden>
+            <label class="estrella" for="e5"><img src="Imagenes/Iconos/estrella.svg"></label>
+            <input type="radio" id="e4" name="puntuacion" value="4" hidden>
+            <label class="estrella" for="e4"><img src="Imagenes/Iconos/estrella.svg"></label>
+            <input type="radio" id="e3" name="puntuacion" value="3" hidden>
+            <label class="estrella" for="e3"><img src="Imagenes/Iconos/estrella.svg"></label>
+            <input type="radio" id="e2" name="puntuacion" value="2" hidden>
+            <label class="estrella" for="e2"><img src="Imagenes/Iconos/estrella.svg"></label>
+            <input type="radio" id="e1" name="puntuacion" value="1" hidden>
+            <label class="estrella" for="e1"><img src="Imagenes/Iconos/estrella.svg"></label>
+          </div>    
+          <!-- Botones de vovler atras y registrarse -->
+          <div class="row justify-content-center separacionsecundaria">
+            <a class="botonproducto" href="<?=url.'?controller=comentario&action=mostrarcomentario'?>">Volver</a>
+            <button class="botonproducto ms-5" type="submit" id="botonaceptar" name="registrar">Registrar</button>
+          </div>
+        <!-- </form> -->
+      </div>
+
+      <script src="js/añadircomentarios.js"></script>
+
+    </body>
+
+</html>
