@@ -16,13 +16,13 @@ class pedidoController
             // Si no te has registrado te llevara al panel de login para que lo hagas
             usuarioController::login();
         } else {
-            // Almacena el pedido en la base de datos
-            $idpedido = PedidosUsuarioDAO::guardarpedido();
+            // // Almacena el pedido en la base de datos
+            // $idpedido = PedidosUsuarioDAO::guardarpedido();
 
-            // Guarda el id del pedido en una cookie  con el nombre del usuario que durara 1h
-            setcookie($_SESSION['idusuario'], $idpedido, time() + 3600);
-            // Guarda en otra cookie el precio de la compra que durara 1h
-            setcookie($_SESSION['idusuario'] . 'precio', ($precio = Calcularprecios::calcularpreciofinal($_SESSION['selecciones'])), time() + 3600);
+            // // Guarda el id del pedido en una cookie  con el nombre del usuario que durara 1h
+            // setcookie($_SESSION['idusuario'], $idpedido, time() + 3600);
+            // // Guarda en otra cookie el precio de la compra que durara 1h
+            // setcookie($_SESSION['idusuario'] . 'precio', ($precio = Calcularprecios::calcularpreciofinal($_SESSION['selecciones'])), time() + 3600);
 
             // Elimina la sesión de selecciones.
             unset($_SESSION['selecciones']);

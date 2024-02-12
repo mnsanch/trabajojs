@@ -21,15 +21,15 @@ class APIController{
             return; //return para salir de la funcion
         }
 
-        public function añadircomentarios(){
-                // Si quieres devolverle información al JS, codificas en json un array con la información
-                // y se los devuelves al JS
-                $comentario = ComentarioDAO::guardarcomentarioo($w,$w,$w);
+        // public function añadircomentarios(){
+        //         // Si quieres devolverle información al JS, codificas en json un array con la información
+        //         // y se los devuelves al JS
+        //         $comentario = ComentarioDAO::guardarcomentarioo($w,$w,$w);
 
-                echo json_encode($comentario, JSON_UNESCAPED_UNICODE) ; 
+        //         echo json_encode($comentario, JSON_UNESCAPED_UNICODE) ; 
 
-                return; //return para salir de la funcion
-        }
+        //         return; //return para salir de la funcion
+        // }
 
 
         public function datosultimopedido() {
@@ -51,6 +51,32 @@ class APIController{
             
                 echo json_encode($array, JSON_UNESCAPED_UNICODE);
                 return;
-            }
+        }
+        public function comprar(){
+            // Si quieres devolverle información al JS, codificas en json un array con la información
+            // y se los devuelves al JS
+            $json = file_get_contents('php://input');
+
+                    // Decodificar el JSON a un array asociativo de PHP
+            $datos = json_decode($json, true);
+
+            // Obtener el precio del array asociativo
+            $precio = $datos['total'];
+            $propina = $datos['propina'];
+            PedidosUsuarioDAO::guardarpedido($precio, $propina);
+
+
+            return; //return para salir de la funcion
+    }
+
+    public function preciototal(){
+        // Si quieres devolverle información al JS, codificas en json un array con la información
+        // y se los devuelves al JS
+        $precio=Calcularprecios::calcularpreciofinal($_SESSION['selecciones']);
+
+        echo json_encode($precio, JSON_UNESCAPED_UNICODE) ; 
+
+        return; //return para salir de la funcion
+    }
             
 }

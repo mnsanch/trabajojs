@@ -6,23 +6,23 @@ include_once 'PedidosUsuario.php';
 
 class PedidosUsuarioDAO
 {
-    public static function guardarpedido()
+    public static function guardarpedido($precio, $propina)
     {
         // Conexion con la base de datos
         $conexion = DataBase::connect();
 
         // Guardamos en variables los datos que necesitemos
         $idUsuario = $_SESSION['idusuario'];
-        $precio = Calcularprecios::calcularpreciofinal($_SESSION['selecciones']);
+        // $precio = Calcularprecios::calcularpreciofinal($_SESSION['selecciones']);
         $fechaActual = date("Y-m-d");
 
         // Se prepara la consulta con la base de datos donde guardaremos los datos del pedido
         $stmt = $conexion->prepare("
-                INSERT INTO `pedido` (ID_Usuario, Precio_Pedido, Fecha_Pedido)
-                VALUES (?, ?, ?)
+                INSERT INTO `pedido` (ID_Usuario, Precio_Pedido, Propina, Fecha_Pedido)
+                VALUES (?, ?, ?, ?)
             ");
         // Se le pasan los parametros necesarios
-        $stmt->bind_param("ids", $idUsuario, $precio, $fechaActual);
+        $stmt->bind_param("idds", $idUsuario, $precio, $propina, $fechaActual);
 
 
         // Se ejecuta la consulta

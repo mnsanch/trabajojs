@@ -112,13 +112,48 @@
             $posicion+=1;
         }
     ?>
+    <div class="row">
+            <!-- Imagen y nombre del producto -->
+            <div class="col-7">
+                <form class="container-sm CircularSTD column" id="formPropina">
+                    <input type="radio" id="0%" name="propina" value="0" >
+                    <label for="0%">Nada</label>
+                    <input type="radio" id="0.03%" name="propina" value="0.03" checked>
+                    <label for="0.03%">3%</label>
+                    <input type="radio" id="0.05%" name="propina" value="0.05">
+                    <label for="0.05%">5%</label>
+                    <input type="radio" id="0.21%" name="propina" value="0.21">
+                    <label for="0.21%">21%</label>
+                    <input type="radio" id="0.5%" name="propina" value="0.5">
+                    <label for="0.5%">50%</label>
+                </form>
+            </div>
+            
+            <!-- Se añade la cantidad que tiene y una mas y menos al lado para poder sumar y restar la cantidad -->
+            <div class="row col-1 d-flex align-items-center justify-content-center p-0">
+                </form>
+            </div>
+            <!-- Precio del producto -->
+            <div class="d-flex align-items-center col-4">
+                <div class="col-4 col-sm-3">
+                  <p class="texto justify-content-end row">Propina</p>
+                </div>
+                <div class="col-2 col-sm-4"></div>
+                <div class="col-2 col-sm-3">
+                    <p class="texto justify-content-end row" id="propina"></p>   
+                </div>
+                
+                
+            </div>
+        
+        </div>
         <!-- Precio total de la compra -->
         <div class="row separacioncarrito ms-0 me-1 ">
             <div class="col-4 col-sm-8 fondocarrito"></div>
             <div class="col-8 col-sm-4 row fondocarrito pt-1">
                 <h3 class="col-7 col-sm-5 pe-4 totalcompra justify-content-end row negrita">Total a pagar</h3>
                 <div class="col-1"></div>
-                <h3 class="col-4 col-sm-6 pe-1 totalcompra justify-content-end row negrita"><?=Calcularprecios::calcularpreciofinal($_SESSION['selecciones'])?>€</h3>
+                <h3 class="col-4 col-sm-6 pe-1 totalcompra justify-content-end row negrita" id="total"><?=Calcularprecios::calcularpreciofinal($_SESSION['selecciones'])?>€</h3>
             </div>
         </div>
         <div class="row CircularSTD separacionsecundaria justify-content-center">
@@ -138,10 +173,11 @@
     ?>
     </section>
     <script src="js/guardarLocalStorage.js"></script>
-    
+    <script src="js/propina.js"></script>
+
     <script>
 
-
-    </script>
+    </script> 
 </body>
 </html>
+
