@@ -15,35 +15,15 @@
     
 
     <section class="container-xxl CircularSTD">
-        <?php
-        // Se mira que la cookie este creada
-        if (isset ($_COOKIE[$_SESSION['idusuario']])) {
-            $precio=PedidosUsuarioDAO::revisarprecio($_COOKIE[$_SESSION['idusuario']]);
-
-            ?>
             <!-- Se pone el precio del pedido sacandola de una de las dos cookies -->
             <div class="contenedorlogin col-10 col-sm-5">
-                <h3>El ultimo pedido te costo <?=$precio?>€</h3>
+                <h3>Este es tu ultimo pedido</h3>
                 <div id="qrCodeContainer"></div>
                     <!-- Botón para volver atras -->
                 <div class="row justify-content-center separacionsecundaria">
                     <a class="botonproducto" href="<?=url.'?controller=usuario&action=login'?>">Volver</a>
                 </div>
             </div>
-            <?php
-        }else{
-            ?>
-            <!-- Mensaje que sale cuando no hay cookie -->
-            <div class="contenedorlogin separacionprincipal col-10 col-sm-5">
-                <h1>Hece mucho que no compras en nuestra pagina</h1>
-                <!-- Botón para volver atras -->
-                <div class="row justify-content-center separacionsecundaria">
-                <a class="botonproducto" href="<?=url.'?controller=usuario&action=login'?>">Volver</a>
-                </div>
-            </div>
-        <?php
-        }
-        ?>
     </section>
     <script src="js/qr.js"></script>
 </body>

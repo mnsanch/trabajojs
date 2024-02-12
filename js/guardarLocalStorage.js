@@ -10,13 +10,12 @@ document.getElementById("botonComprar").addEventListener("click", function () {
     })
     .then(valores => {
         // Concatenating the required fields into a string
-        const simplifiedData = valores.map(({ ID_Categoria_Producto, Nombre_Producto, cantidad }) => (
-            `Nombre_Producto:${Nombre_Producto}, Categoria_Producto:${ID_Categoria_Producto}, Cantidad:${cantidad}\n`
+        const producto = valores.map(({ ID_Categoria_Producto, Nombre_Producto, cantidad }) => (
+            `Nombre:${Nombre_Producto}, Categoria:${ID_Categoria_Producto}, Cantidad:${cantidad} \n`
         ));
-
-        console.log('dataString', dataString);
-
+        const productos = producto.join('\n');
+        
         // Storing the concatenated data string in local storage
-        localStorage.setItem('pedido', dataString);
+        localStorage.setItem('pedido', productos);
     });
 });
