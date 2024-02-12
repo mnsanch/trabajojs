@@ -6,74 +6,47 @@ include_once 'Comentario.php';
 
 class ComentarioDAO
 {
-    public static function guardarcomentarioo()
+    public static function guardarcomentarioo($nombreusuario, $comentario, $valoracion)
     {
         // Conexion con la base de datos
         $conexion = DataBase::connect();
 
-        // Guardamos en variables los datos que necesitemos
-        $idUsuario = $_SESSION['idusuario'];
-        $precio = Calcularprecios::calcularpreciofinal($_SESSION['selecciones']);
-        $fechaActual = date("Y-m-d");
+        if ($nombreusuario!='Anonimo') {
+            $idUsuario=$_SESSION['idusuario'];
 
-        // Se prepara la consulta con la base de datos donde guardaremos los datos del pedido
-        $stmt = $conexion->prepare("
-                INSERT INTO `pedido` (ID_Usuario, Precio_Pedido, Fecha_Pedido)
-                VALUES (?, ?, ?)
-            ");
-        // Se le pasan los parametros necesarios
-        $stmt->bind_param("ids", $idUsuario, $precio, $fechaActual);
-
-
-        // Se ejecuta la consulta
-        $stmt->execute();
-
-        //Se hace otra consulta para guardar el id del pedido que se acaba de crear
-        $stmt = $conexion->prepare("
-            SELECT ID_Pedido FROM `pedido` ORDER BY ID_Pedido DESC LIMIT 1
-            ");
-
-        $id = $conexion->insert_id;
-
-        // Se hace un bucle para guardar los pedidos
-        foreach ($_SESSION['selecciones'] as $pedido) {
-            // Guardamos en variables los datos que necesitemos
-            $cantidad = $pedido->getCantidad();
-            $productos = $pedido->getProducto()->getIDProducto();
-
-            // Se prepara la consulta con la base de datos donde crearemos los valores de la tabla intermedia para asociar el pedido con sus productos
+            // Se prepara la consulta con la base de datos donde guardaremos los datos del pedido
             $stmt = $conexion->prepare("
-                INSERT INTO PEDIDO_PRODUCTO (ID_Pedido, ID_Producto, Cantidad)
-                VALUES
-                (?, ?, ?)
+                    INSERT INTO `comentarios` (`ID_Usuario`, `Comentario`, `Valoracion`)
+                    VALUES (?, ?, ?)
                 ");
             // Se le pasan los parametros necesarios
-            $stmt->bind_param("iii", $id, $productos, $cantidad);
+            $stmt->bind_param("isi", $idUsuario, $comentario, $valoracion);
+
 
             // Se ejecuta la consulta
             $stmt->execute();
+
+            return;
+
+        }else {
+            // Se prepara la consulta con la base de datos donde guardaremos los datos del pedido
+            $stmt = $conexion->prepare("
+                    INSERT INTO `comentarios` ( `Comentario`, `Valoracion`)
+                    VALUES (?, ?)
+                ");
+            // Se le pasan los parametros necesarios
+            $stmt->bind_param("si", $comentario, $valoracion);
+
+
+            // Se ejecuta la consulta
+            $stmt->execute();
+
+            return;
         }
+         
 
-        // Se devuelve el id del pedido que se ha creado
-        return $id;
+        
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public static function mostrarcomentarios()
     {

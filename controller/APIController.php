@@ -21,15 +21,22 @@ class APIController{
             return; //return para salir de la funcion
         }
 
-        // public function añadircomentarios(){
-        //         // Si quieres devolverle información al JS, codificas en json un array con la información
-        //         // y se los devuelves al JS
-        //         $comentario = ComentarioDAO::guardarcomentarioo($w,$w,$w);
+        public function añadircomentarios(){
+                // Si quieres devolverle información al JS, codificas en json un array con la información
+                // y se los devuelves al JS
+                $json = file_get_contents('php://input');
 
-        //         echo json_encode($comentario, JSON_UNESCAPED_UNICODE) ; 
+                    // Decodificar el JSON a un array asociativo de PHP
+                $datos = json_decode($json, true);
 
-        //         return; //return para salir de la funcion
-        // }
+                // Obtener el precio del array asociativo
+                $nombre = $datos['nombre'];
+                $comentario = $datos['comentario'];
+                $valoracion = $datos['valoracion'];
+                ComentarioDAO::guardarcomentarioo($nombre, $comentario, $valoracion);
+
+                return; //return para salir de la funcion
+        }
 
 
         public function datosultimopedido() {
@@ -67,7 +74,7 @@ class APIController{
 
 
             return; //return para salir de la funcion
-    }
+        }
 
     public function preciototal(){
         // Si quieres devolverle información al JS, codificas en json un array con la información
