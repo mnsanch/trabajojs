@@ -51,27 +51,7 @@
         <button class="botonproducto ms-5" type="submit" name="registrar">Añadir comentarios</button>
     </form>
     <script src="js/mostrarcomentarios.js"></script>
-    <script>
-        // Script para manejar la selección de estrellas y filtrar comentarios
-        const checkboxes = document.querySelectorAll('input[type="checkbox"][name="estrella"]');
-        let estrellasSeleccionadas = [];
     
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                const valor = parseInt(this.value);
-                if (this.checked) {
-                    estrellasSeleccionadas.push(valor);
-                } else {
-                    estrellasSeleccionadas = estrellasSeleccionadas.filter(item => item !== valor);
-                }
-                estrellasSeleccionadas.sort((a, b) => a - b); // Ordenar el array
-    
-                // Aquí aplicamos el filtrado de comentarios con la nueva array de estrellas seleccionadas
-                const comentariosFiltrados = comentarios.filter(comentario => estrellasSeleccionadas.includes(parseInt(comentario.Valoracion)));
-                console.log(comentariosFiltrados);
-            });
-        });
-    </script>
     
 
 </body>
