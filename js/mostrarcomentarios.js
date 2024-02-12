@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(valores => {
             comentarios = valores;
-            console.log(valores)
             const comentariosValoracion3 = comentarios.filter(valores => valores.Valoracion === "3");
 
 // Mostrar los comentarios filtrados en la consola
@@ -85,4 +84,55 @@ console.log(comentariosValoracion3);
             ordenar();
             mostrarcomentarios();
         })
+
+        document.getElementById('usuario').addEventListener('change', function () {
+            const usuario = document.getElementById('usuario').value;
+            if (usuario == 'Todos') {
+                fetch('http://localhost/trabajojs/index.php?controller=API&action=mostrarcomentarios', {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
+                    },
+                })
+                .then(response => {
+                    return response.json();
+                })
+                .then(valores => {
+                    comentarios = valores;
+
+                    mostrarcomentarios();
+                })
+            }else if (usuario == 'Anonimo') {
+                fetch('http://localhost/trabajojs/index.php?controller=API&action=mostrarcomentariosanonimos', {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
+                    },
+                })
+                .then(response => {
+                    return response.json();
+                })
+                .then(valores => {
+                    comentarios = valores;
+                    
+                    mostrarcomentarios();
+                })
+            }else if (usuario == 'Validado') {
+                fetch('http://localhost/trabajojs/index.php?controller=API&action=mostrarcomentariosvalidados', {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
+                    },
+                })
+                .then(response => {
+                    return response.json();
+                })
+                .then(valores => {
+                    comentarios = valores;
+                    
+                    mostrarcomentarios();
+                })
+            }
+        });
+        
 });

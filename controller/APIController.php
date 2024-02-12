@@ -21,6 +21,26 @@ class APIController{
             return; //return para salir de la funcion
         }
 
+        public function mostrarcomentariosanonimos(){
+            // Si quieres devolverle información al JS, codificas en json un array con la información
+            // y se los devuelves al JS
+            $comentarios = ComentarioDAO::mostrarcomentariosanonimos();
+
+            echo json_encode($comentarios, JSON_UNESCAPED_UNICODE) ; 
+
+            return; //return para salir de la funcion
+        }
+
+        public function mostrarcomentariosvalidados(){
+            // Si quieres devolverle información al JS, codificas en json un array con la información
+            // y se los devuelves al JS
+            $comentarios = ComentarioDAO::mostrarcomentariosvalidados();
+
+            echo json_encode($comentarios, JSON_UNESCAPED_UNICODE) ; 
+
+            return; //return para salir de la funcion
+        }
+
         public function añadircomentarios(){
                 // Si quieres devolverle información al JS, codificas en json un array con la información
                 // y se los devuelves al JS

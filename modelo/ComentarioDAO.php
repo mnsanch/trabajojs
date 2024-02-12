@@ -48,8 +48,7 @@ class ComentarioDAO
         
     }
 
-    public static function mostrarcomentarios()
-    {
+    public static function mostrarcomentarios(){
         // Conexion con la basse de datos
         $conexion = DataBase::connect();
 
@@ -81,6 +80,66 @@ class ComentarioDAO
                     'Valoracion'=> $row['Valoracion']
                 ];
             }
+        }
+
+
+        // Se devuelve comentarios
+        return $comentarios;
+    }
+
+    public static function mostrarcomentariosanonimos(){
+        // Conexion con la basse de datos
+        $conexion = DataBase::connect();
+
+        // Se hace una consulta con la base de datos donde nos devolvera todaos los comentarios
+        $stmt = $conexion->query("
+            SELECT comentarios.ID_Comentario, usuario.Nombre_Usuario, comentarios.Comentario, comentarios.Valoracion 
+            FROM comentarios 
+            LEFT JOIN usuario ON comentarios.ID_Usuario = usuario.ID_Usuario
+            WHERE comentarios.ID_Usuario IS NULL
+        ");
+
+        /// Se crea una array para guardar los valores
+        $comentarios = [];
+
+        // Se gurdan los resultados como un objeto de la classe Comentario
+        while ($row = $stmt->fetch_assoc()) {
+            $comentarios[] = [
+                'Nombre_Usuario'=> 'Anónimo',
+                'ID_Comentario'=> $row['ID_Comentario'],
+                'Comentario'=> $row['Comentario'],
+                'Valoracion'=> $row['Valoracion']
+            ];
+        }
+
+
+        // Se devuelve comentarios
+        return $comentarios;
+    }
+
+    public static function mostrarcomentariosvalidados(){
+        // Conexion con la basse de datos
+        $conexion = DataBase::connect();
+
+        // Se hace una consulta con la base de datos donde nos devolvera todaos los comentarios
+        $stmt = $conexion->query("
+            SELECT comentarios.ID_Comentario, usuario.Nombre_Usuario, comentarios.Comentario, comentarios.Valoracion 
+            FROM comentarios 
+            JOIN usuario ON comentarios.ID_Usuario = usuario.ID_Usuario
+            WHERE comentarios.ID_Usuario=usuario.ID_Usuario
+        ");
+
+        /// Se crea una array para guardar los valores
+        $comentarios = [];
+
+        // Se gurdan los resultados como un objeto de la classe Comentario
+        while ($row = $stmt->fetch_assoc()) {
+            $comentarios[] = [
+                'Nombre_Usuario'=> $row['Nombre_Usuario'],
+                'ID_Comentario'=> $row['ID_Comentario'],
+                'Comentario'=> $row['Comentario'],
+                'Valoracion'=> $row['Valoracion']
+            ];
         }
 
 
