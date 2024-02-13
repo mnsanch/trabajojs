@@ -9,8 +9,16 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="css/estilos.css" rel="stylesheet">
-</head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notie/dist/notie.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/notie/dist/notie.min.js"></script>
 
+</head>
+<style>
+
+</style>
+
+
+        
 <body>
 
     <div class="CircularSTD contenedorlogin separacionprincipal col-10 col-sm-5">
@@ -27,18 +35,18 @@
           <input class="inputlogin" type="text" id="comentario" name="comentario" required>
 
           <label class="separacionsecundaria" for="valoracion">valoracion:</label>
-          <div class="valoracion d-flex flex-row-reverse justify-content-end">
-            <input type="radio" id="e5" name="puntuacion" value="5" hidden>
-            <label class="estrella" for="e5"><img src="Imagenes/Iconos/estrella.svg"></label>
-            <input type="radio" id="e4" name="puntuacion" value="4" hidden>
-            <label class="estrella" for="e4"><img src="Imagenes/Iconos/estrella.svg"></label>
-            <input type="radio" id="e3" name="puntuacion" value="3" hidden>
-            <label class="estrella" for="e3"><img src="Imagenes/Iconos/estrella.svg"></label>
-            <input type="radio" id="e2" name="puntuacion" value="2" hidden>
-            <label class="estrella" for="e2"><img src="Imagenes/Iconos/estrella.svg"></label>
-            <input type="radio" id="e1" name="puntuacion" value="1" hidden>
-            <label class="estrella" for="e1"><img src="Imagenes/Iconos/estrella.svg"></label>
-          </div>    
+          <div class="rating d-flex flex-row-reverse justify-content-end">
+            <input type="radio" id="estrella5" name="puntuacion" value="5">
+            <label for="estrella5"></label>
+            <input type="radio" id="estrella4" name="puntuacion" value="4">
+            <label for="estrella4"></label>
+            <input type="radio" id="estrella3" name="puntuacion" value="3" checked>
+            <label for="estrella3"></label>
+            <input type="radio" id="estrella2" name="puntuacion" value="2">
+            <label for="estrella2"></label>
+            <input type="radio" id="estrella1" name="puntuacion" value="1">
+            <label for="estrella1"></label>
+          </div>   
           <!-- Botones de vovler atras y registrarse -->
           <div class="row justify-content-center separacionsecundaria">
             <a class="botonproducto" href="<?=url.'?controller=comentario&action=mostrarcomentario'?>">Volver</a>
