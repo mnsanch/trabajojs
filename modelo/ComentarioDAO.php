@@ -96,7 +96,7 @@ class ComentarioDAO
             SELECT comentarios.ID_Comentario, usuario.Nombre_Usuario, comentarios.Comentario, comentarios.Valoracion 
             FROM comentarios 
             LEFT JOIN usuario ON comentarios.ID_Usuario = usuario.ID_Usuario
-            WHERE comentarios.ID_Usuario IS NULL
+            WHERE usuario.ID_Usuario IS NULL
         ");
 
         /// Se crea una array para guardar los valores
