@@ -87,12 +87,15 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('ascendente').addEventListener('click', function(){
             ordenar();
             mostrarcomentarios(comentarios);
-            filtrarporestrellas();
-        })
+            if (estrellasSeleccionadas.length > 0) {
+                filtrarporestrellas();
+            }        })
         document.getElementById('descendente').addEventListener('click', function(){
             ordenar();
             mostrarcomentarios(comentarios);
-            filtrarporestrellas();
+            if (estrellasSeleccionadas.length > 0) {
+                filtrarporestrellas();
+            }
         })
 
         document.getElementById('usuario').addEventListener('change', function () {
