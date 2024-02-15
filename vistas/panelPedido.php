@@ -13,7 +13,7 @@
 
 <body>
 <form class="container-sm CircularSTD">
-        <label>Estrellas:</label>
+        <label>Que quieres comer:</label>
         <input type="checkbox" id="Bocadillo_frio" value="Bocadillo_frio" >
         <label for="Bocadillo_frio">Bocadillo frio</label>
         <input type="checkbox" id="Bocadillo_caliente" value="Bocadillo_caliente">
@@ -28,6 +28,9 @@
         <label for="Hamburgesa_pollo">Hamburgesa pollo</label>
         <input type="checkbox" id="Hamburgesa_vegetal" value="Hamburgesa_vegetal">
         <label for="Hamburgesa_vegetal">Hamburgesa vegetal</label>
+    </form>    
+    <form class="container-sm CircularSTD">
+        <label>Que quieres beber:</label>
         <input type="checkbox" id="Bebida_con_gas" value="Bebida_con_gas">
         <label for="Bebida_con_gas">Bebida con gas</label>
         <input type="checkbox" id="Bebida_sin_gas" value="Bebida_sin_gas">
@@ -35,6 +38,7 @@
         <input type="checkbox" id="Bebida_alcoholica" value="Bebida_alcoholica">
         <label for="Bebida_alcoholica">Bebida alcoholica</label>
     </form>    
+
     <section class="container-xxl CircularSTD">
         <div class="row">
             <?php

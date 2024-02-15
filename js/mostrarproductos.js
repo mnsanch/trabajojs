@@ -2,11 +2,11 @@
 
 document.querySelectorAll('input[type=checkbox]').forEach(function (checkbox) {
     checkbox.addEventListener('change', function () {
-        var alMenosUnCheckboxSeleccionado = false;
+        let alMenosUnCheckboxSeleccionado = false;
         document.querySelectorAll('input[type=checkbox]').forEach(function (currentCheckbox) {
-            var nombreCheckbox = currentCheckbox.value;
-            var elementos = document.querySelectorAll('.' + nombreCheckbox);
-            var mostrar = currentCheckbox.checked;
+            const nombreCheckbox = currentCheckbox.value;
+            const elementos = document.querySelectorAll('.' + nombreCheckbox);
+            const mostrar = currentCheckbox.checked;
             if (mostrar) {
                 alMenosUnCheckboxSeleccionado = true;
             }
