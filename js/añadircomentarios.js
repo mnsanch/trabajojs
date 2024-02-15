@@ -1,3 +1,26 @@
+document.addEventListener('DOMContentLoaded', function () {
+    fetch('http://localhost/trabajojs/index.php?controller=API&action=cogernombreusuario', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then(valores => {
+            if (valores!=false) {
+                const select = document.getElementById('nombre');
+                const option = document.createElement('option');
+                option.innerHTML = valores;
+                select.appendChild(option);
+            }           
+
+        })
+
+    
+})
+
 document.getElementById("botonaceptar").addEventListener("click", function () {
     // Obtener los valores del formulario
     const nombre = document.getElementById("nombre").value;
@@ -24,6 +47,7 @@ document.getElementById("botonaceptar").addEventListener("click", function () {
       comentario: comentario,
       valoracion: valoracion 
     };
+    console.log(data);
 
     // Enviar los datos al servidor
     fetch('http://localhost/trabajojs/index.php?controller=API&action=añadircomentarios', {
