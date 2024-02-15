@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="css/estilos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notie/dist/notie.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/notie/dist/notie.min.js"></script>
+
     
 </head>
 
@@ -147,6 +150,62 @@
             </div>
         
         </div>
+        <?php
+        if (!ISSET ($_SESSION['puntos'])){
+        ?>
+            <div class="row">
+                <!-- Imagen y nombre del producto -->
+                <div class="col-7">
+                    <p class="texto">No puedes gastar puntos porque no te has registrado</p>
+                </div>
+                
+                <!-- Se añade la cantidad que tiene y una mas y menos al lado para poder sumar y restar la cantidad -->
+                <div class="row col-1 d-flex align-items-center justify-content-center p-0">
+                </div>
+                <!-- Precio del producto -->
+                <div class="d-flex align-items-center col-4">
+
+                </div>
+            
+            </div>
+        <?php
+        }else{
+        ?>
+            <div class="row">
+                <!-- Imagen y nombre del producto -->
+                <div class="col-7">
+                    <p class="texto">Tienes <span id="puntosbd"></span> puntos quieres gastarlos</p>
+                    <form class="container-sm CircularSTD column" id="formPropina">
+                    <input type="radio" id="no" name="puntos" value="0" checked>
+                    <label for="no">No</label>
+                    <input type="radio" id="si" name="puntos" value="0.03">
+                    <label for="si">Si</label>
+                    <input type="number" id="textopuntos" disabled>
+                </form>
+                </div>
+                
+                <!-- Se añade la cantidad que tiene y una mas y menos al lado para poder sumar y restar la cantidad -->
+                <div class="row col-1 d-flex align-items-center justify-content-center p-0">
+                    </form>
+                </div>
+                <!-- Precio del producto -->
+                <div class="d-flex align-items-center col-4">
+                    <div class="col-4 col-sm-3">
+                    <p class="texto justify-content-end row">Puntos</p>
+                    </div>
+                    <div class="col-2 col-sm-4"></div>
+                    <div class="col-2 col-sm-3">
+                        <p class="texto justify-content-end row" id="puntos">0</p>   
+                    </div>
+                    
+                    
+                </div>
+            
+            </div>
+        <?php
+        }
+        ?>
+
         <!-- Precio total de la compra -->
         <div class="row separacioncarrito ms-0 me-1 ">
             <div class="col-4 col-sm-8 fondocarrito"></div>
@@ -173,11 +232,7 @@
     ?>
     </section>
     <script src="js/guardarLocalStorage.js"></script>
-    <script src="js/propina.js"></script>
-
-    <script>
-
-    </script> 
+    <script src="js/propinaypuntos.js"></script>
 </body>
 </html>
 

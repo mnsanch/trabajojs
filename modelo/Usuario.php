@@ -8,6 +8,7 @@ class Usuario
         protected $Telefono;
         protected $contraseña;
         protected $Nombre_Categoria_Usuario;
+        protected $Puntos;
 
         public function __construct()
         {
@@ -139,6 +140,24 @@ class Usuario
         public function setNombreCategoriaUsuario($Nombre_Categoria_Usuario): self
         {
                 $this->Nombre_Categoria_Usuario = $Nombre_Categoria_Usuario;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of Puntos
+         */
+        public function getPuntos()
+        {
+                return $this->Puntos;
+        }
+
+        /**
+         * Set the value of Puntos
+         */
+        public function setPuntos($Puntos): self
+        {
+                $this->Puntos = $Puntos;
 
                 return $this;
         }

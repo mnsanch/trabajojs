@@ -18,6 +18,7 @@
         ?>
       <!-- Si la sesion existe te muestra esta sección -->
       <h1>Hola <?php echo $_SESSION['nombre']?></h1>
+      <p>Tienes <?php echo $_SESSION['puntos']?> puntos</p>
       <section class="row separacionsecundaria">
         <div class="col-12 mb-3 row justify-content-around">
           <!-- Boton para modificar los datos del usuario -->

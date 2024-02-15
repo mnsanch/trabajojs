@@ -189,6 +189,7 @@ class usuarioController
                 unset($_SESSION['telefono']);
                 unset($_SESSION['idusuario']);
                 unset($_SESSION['categoria']);
+                unset($_SESSION['puntos']);
 
                 // Creamos las variables de sesion del usuario con los nuevos datos
                 $_SESSION['nombre'] = $usuario->getNombreUsuario();
@@ -198,6 +199,7 @@ class usuarioController
                 $_SESSION['telefono'] = $usuario->getTelefono();
                 $_SESSION['idusuario'] = $usuario->getIDUsuario();
                 $_SESSION['categoria'] = $usuario->getNombreCategoriaUsuario();
+                $_SESSION['puntos'] = $usuario->getPuntos();
 
                 // redirigimos a la pagina del login
                 $this->login();

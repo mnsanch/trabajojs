@@ -19,7 +19,8 @@ class UsuarioDAO
                 usuario.Direccion,
                 usuario.Telefono,
                 contraseñas.contraseña,
-                categoria_usuario.Nombre_Categoria_Usuario
+                categoria_usuario.Nombre_Categoria_Usuario,
+                usuario.Puntos
                 FROM usuario
                 JOIN contraseñas on usuario.ID_Usuario = contraseñas.ID_Usuario
                 JOIN categoria_usuario on usuario.ID_Categoria_Usuario = categoria_usuario.ID_Categoria_Usuario"
@@ -52,7 +53,8 @@ class UsuarioDAO
                 usuario.Direccion,
                 usuario.Telefono,
                 contraseñas.contraseña,
-                categoria_usuario.Nombre_Categoria_Usuario
+                categoria_usuario.Nombre_Categoria_Usuario,
+                usuario.Puntos
                 FROM usuario
                 JOIN contraseñas on usuario.ID_Usuario = contraseñas.ID_Usuario
                 JOIN categoria_usuario on usuario.ID_Categoria_Usuario = categoria_usuario.ID_Categoria_Usuario
@@ -101,6 +103,7 @@ class UsuarioDAO
                 $_SESSION['telefono'] = $usuario->getTelefono();
                 $_SESSION['idusuario'] = $usuario->getIDUsuario();
                 $_SESSION['categoria'] = $usuario->getNombreCategoriaUsuario();
+                $_SESSION['puntos'] = $usuario->getPuntos();
                 return true;
             }
             // Si el correo es igual pero la contraseña no correodb se vuelve falso para evitar que un corro pueda entrar con otra contraseña
@@ -118,8 +121,8 @@ class UsuarioDAO
 
         // Se prepara la consulta con la base de datos donde creara un usuario con las variables que le demos  
         $stmt = $conexion->prepare("
-                INSERT INTO `usuario`(`ID_Categoria_Usuario`, `Nombre_Usuario`, `Correo`, `Direccion`, `telefono`)
-                VALUES ('2',?,?,?,?);
+                INSERT INTO `usuario`(`ID_Categoria_Usuario`, `Nombre_Usuario`, `Correo`, `Direccion`, `telefono`, `Puntos`)
+                VALUES ('2',?,?,?,?,0);
             ");
         // Se le dan los parametros necesarios
         $stmt->bind_param("sssi", $nombre, $correo, $direccion, $telefono);
@@ -220,6 +223,76 @@ class UsuarioDAO
             }
         }
         return true;
+    }
+
+    public static function modificarpuntos($puntos, $id)
+    {
+        // Conexion con la base da datos
+        $conexion = DataBase::connect();
+
+        // Se prepara la consulta con la base de datos donde nos actualizara el usuario con los valores que nos da el propio usuario 
+        $stmt = $conexion->prepare(
+            "UPDATE `usuario` SET puntos =? WHERE ID_Usuario=?"
+        );
+        // Se le dan los parametros necesarios
+        $stmt->bind_param("ii", $puntos, $id);
+
+        // Ejecutamos la consulta
+        $stmt->execute();
+        
+
+        
+
+        // COjemos el usuario con los cambios realizados
+        $usuario = UsuarioDAO::getUsuarioByID($id);
+
+        UsuarioDAO::modificarvariablessesion($usuario);
+
+        return;
+    }
+
+    public static function modificarvariablessesion($usuario){
+        unset($_SESSION['nombre']);
+        unset($_SESSION['correo']);
+        unset($_SESSION['contraseña']);
+        unset($_SESSION['direccion']);
+        unset($_SESSION['telefono']);
+        unset($_SESSION['idusuario']);
+        unset($_SESSION['categoria']);
+        unset($_SESSION['puntos']);
+
+        // Creamos las variables de sesion del usuario con los nuevos datos
+        $_SESSION['nombre'] = $usuario->getNombreUsuario();
+        $_SESSION['correo'] = $usuario->getCorreo();
+        $_SESSION['contraseña'] = $usuario->getContraseña();
+        $_SESSION['direccion'] = $usuario->getDireccion();
+        $_SESSION['telefono'] = $usuario->getTelefono();
+        $_SESSION['idusuario'] = $usuario->getIDUsuario();
+        $_SESSION['categoria'] = $usuario->getNombreCategoriaUsuario();
+        $_SESSION['puntos'] = $usuario->getPuntos();
+    }
+
+    public static function cogerpuntosusuario($id){
+        
+        // Conexion con la base da datos
+        $conexion = DataBase::connect();
+
+        // Se prepara la consulta con la base de datos donde nos dara el ID de la categoria que queramos 
+        $stmt = $conexion->prepare("SELECT puntos FROM `usuario` WHERE ID_Usuario=?");
+        // Se le dan los parametros necesarios
+        $stmt->bind_param("i", $id);
+
+        $stmt->execute();
+
+        // Se vincula el resultado a una variable
+        $stmt->bind_result($puntos);
+
+        // Se obtiene del resultado
+        $stmt->fetch();
+        $conexion->close();
+
+        // Se devuelve el resultado
+        return $puntos;
     }
 }
 ?>

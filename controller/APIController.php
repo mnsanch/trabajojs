@@ -90,7 +90,11 @@ class APIController{
             // Obtener el precio del array asociativo
             $precio = $datos['total'];
             $propina = $datos['propina'];
+            $puntos = $datos['puntos'];
+            $puntosantiguos = $datos['puntostotales'];
+            $puntostotales = $puntosantiguos-$puntos;
             PedidosUsuarioDAO::guardarpedido($precio, $propina);
+            UsuarioDAO::modificarpuntos($puntostotales, $_SESSION['idusuario']);
 
 
             return; //return para salir de la funcion
@@ -104,6 +108,15 @@ class APIController{
         echo json_encode($precio, JSON_UNESCAPED_UNICODE) ; 
 
         return; //return para salir de la funcion
+    }
+
+    public function cogerpuntosusuario(){
+        $puntos=UsuarioDAO::cogerpuntosusuario($_SESSION['idusuario']);
+
+        echo json_encode($puntos, JSON_UNESCAPED_UNICODE) ; 
+
+        return; //return para salir de la funcion
+
     }
             
 }
