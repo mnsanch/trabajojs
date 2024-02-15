@@ -174,7 +174,7 @@
             <div class="row">
                 <!-- Imagen y nombre del producto -->
                 <div class="col-7">
-                    <p class="texto">Tienes <span id="puntosbd"></span> puntos quieres gastarlos</p>
+                    <p class="texto">Tienes <b><span id="puntosbd"></span></b> puntos quieres gastarlos</p>
                     <form class="container-sm CircularSTD column" id="formPropina">
                     <input type="radio" id="no" name="puntos" value="0" checked>
                     <label for="no">No</label>
@@ -208,9 +208,16 @@
 
         <!-- Precio total de la compra -->
         <div class="row separacioncarrito ms-0 me-1 ">
-            <div class="col-4 col-sm-8 fondocarrito"></div>
+            <div class="col-4 col-sm-8 fondocarrito">
+            <p class=" totalcompra negrita" id="qwerty"></p>
+
+            </div>
             <div class="col-8 col-sm-4 row fondocarrito pt-1">
-                <h3 class="col-7 col-sm-5 pe-4 totalcompra justify-content-end row negrita">Total a pagar</h3>
+                <div class="col-7 col-sm-5 pe-4">
+                          <h3 class=" totalcompra justify-content-end row negrita">Total a pagar</h3>
+
+          
+                </div>
                 <div class="col-1"></div>
                 <h3 class="col-4 col-sm-6 pe-1 totalcompra justify-content-end row negrita" id="total"><?=Calcularprecios::calcularpreciofinal($_SESSION['selecciones'])?>€</h3>
             </div>

@@ -1,9 +1,10 @@
 
 const propinaRadios = document.querySelectorAll('input[name="propina"]');
-var valorpropina = 0; // Variable para almacenar la propina
-var total = 0; // Variable para almacenar el total
-var puntos = 0;
-var puntostotales = 0;
+let valorpropina = 0; // Variable para almacenar la propina
+let total = 0; // Variable para almacenar el total
+let puntos = 0;
+let puntostotales = 0;
+let puntosconseguidos = 0;
 
 
 
@@ -40,6 +41,7 @@ propinaRadios.forEach(radio => {
         valorpropina = this.value;
         propina(valorpropina);
         
+        
     });
 });
 
@@ -51,12 +53,16 @@ function propina(valorpropina){
         document.getElementById('total').innerText = total.toFixed(2) + "€";
 
         if (puntos>puntostotales) {
-            var formulario = document.getElementById("textopuntos");
+            let formulario = document.getElementById("textopuntos");
             formulario.value = ""; 
             total = parseFloat(propina) + parseFloat(precioFinal);
+            // document.getElementById('total').innerText = total.toFixed(2) + "€";
+            total = parseFloat(propina) + parseFloat(precioFinal);
             document.getElementById('total').innerText = total.toFixed(2) + "€";
-            document.getElementById('puntos').innerText = 0;
+            document.getElementById('puntos').innerText = "-"+0+"€ ";
             puntos=0;
+            puntosconseguidos = parseInt(total/10);
+            document.getElementById('qwerty').innerhtml = "Vas a conseguir "+ puntosconseguidos+ " puntos";
         
             notie.alert({
                 type: 'error',
@@ -66,21 +72,23 @@ function propina(valorpropina){
             return;
         }
         // Actualiza el contenido del elemento con el ID "propina"
-        document.getElementById('puntos').innerText = puntos;
+        document.getElementById('puntos').innerText = "-"+puntos+"€ ";
         if (puntos>precioFinal) {
             document.getElementById('total').innerText = 0+ "€";
+            total=0;
             
         }else if ((isNaN(puntos))) {
             total = parseFloat(propina) + parseFloat(precioFinal);
             document.getElementById('total').innerText = total.toFixed(2) + "€";
-            document.getElementById('puntos').innerText = 0;
+            document.getElementById('puntos').innerText = "-"+0+"€ ";
 
             
         }else{
             document.getElementById('total').innerText = total.toFixed(2) + "€";
         }
 
-
+            puntosconseguidos = parseInt(total/10);
+            document.getElementById('qwerty').innerHTML =  "Vas a conseguir "+ puntosconseguidos+ " puntos";
 
     });
 }
@@ -90,7 +98,8 @@ document.getElementById("botonComprar").addEventListener("click", function () {
         propina: valorpropina, // Aquí se utiliza la propina calculada
         total: total, // Aquí se utiliza el total calculado
         puntos: puntos,
-        puntostotales: puntostotales // Aquí se utiliza el total calculado
+        puntostotales: puntostotales, // Aquí se utiliza el total calculado
+        puntosconseguidos: puntosconseguidos // Aquí se utiliza el total calculado
     };
 
     fetch('http://localhost/trabajojs/index.php?controller=API&action=comprar', {
@@ -128,22 +137,26 @@ document.getElementById('si').addEventListener('click', function(){
         no.checked = true;
         return;
     }
-    var formulario = document.getElementById("textopuntos");
+    let formulario = document.getElementById("textopuntos");
     formulario.removeAttribute("disabled");
 })
 document.getElementById('no').addEventListener('click', function(){
-    var formulario = document.getElementById("textopuntos");
+    let formulario = document.getElementById("textopuntos");
     formulario.value = ""; 
     formulario.setAttribute("disabled", true);
-    document.getElementById('puntos').innerText = 0;
+    document.getElementById('puntos').innerText = "-"+0+"€ ";
     puntos = 0;
     calcularPrecioFinal().then(precioFinal => {
         const propina = valorpropina * precioFinal;
         total = parseFloat(propina) + parseFloat(precioFinal);
         document.getElementById('propina').innerText = propina.toFixed(2) + "€";
         document.getElementById('total').innerText = total.toFixed(2) + "€";
+        puntosconseguidos = parseInt(total/10);
+        document.getElementById('qwerty').innerHTML = "Vas a conseguir "+ puntosconseguidos+ " puntos";
 
     })
+
+
     
 })
 document.getElementById('textopuntos').addEventListener('input', function() {
