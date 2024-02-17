@@ -116,7 +116,7 @@
         }
     ?>
     <div class="row">
-            <!-- Imagen y nombre del producto -->
+            <!-- Filtro de propina que quieres ponerle al pedido -->
             <div class="col-7">
                 <form class="container-sm CircularSTD column" id="formPropina">
                     <input type="radio" id="0%" name="propina" value="0" >
@@ -132,11 +132,9 @@
                 </form>
             </div>
             
-            <!-- Se añade la cantidad que tiene y una mas y menos al lado para poder sumar y restar la cantidad -->
             <div class="row col-1 d-flex align-items-center justify-content-center p-0">
-                </form>
             </div>
-            <!-- Precio del producto -->
+            <!-- Propina que se suma -->
             <div class="d-flex align-items-center col-4">
                 <div class="col-4 col-sm-3">
                   <p class="texto justify-content-end row">Propina</p>
@@ -145,24 +143,20 @@
                 <div class="col-2 col-sm-3">
                     <p class="texto justify-content-end row" id="propina"></p>   
                 </div>
-                
-                
             </div>
         
-        </div>
+    </div>
         <?php
         if (!ISSET ($_SESSION['puntos'])){
         ?>
             <div class="row">
-                <!-- Imagen y nombre del producto -->
+                <!-- Mensaje de no gastar puntos si no estas logeado -->
                 <div class="col-7">
                     <p class="texto">No puedes gastar puntos porque no te has registrado</p>
                 </div>
                 
-                <!-- Se añade la cantidad que tiene y una mas y menos al lado para poder sumar y restar la cantidad -->
                 <div class="row col-1 d-flex align-items-center justify-content-center p-0">
                 </div>
-                <!-- Precio del producto -->
                 <div class="d-flex align-items-center col-4">
 
                 </div>
@@ -172,7 +166,7 @@
         }else{
         ?>
             <div class="row">
-                <!-- Imagen y nombre del producto -->
+                <!-- Filtros para gastar o no puntos -->
                 <div class="col-7">
                     <p class="texto">Tienes <b><span id="puntosbd"></span></b> puntos quieres gastarlos</p>
                     <form class="container-sm CircularSTD column" id="formPropina">
@@ -184,11 +178,9 @@
                 </form>
                 </div>
                 
-                <!-- Se añade la cantidad que tiene y una mas y menos al lado para poder sumar y restar la cantidad -->
                 <div class="row col-1 d-flex align-items-center justify-content-center p-0">
-                    </form>
                 </div>
-                <!-- Precio del producto -->
+                <!-- Puntos que se muestran -->
                 <div class="d-flex align-items-center col-4">
                     <div class="col-4 col-sm-3">
                     <p class="texto justify-content-end row">Puntos</p>
@@ -209,7 +201,7 @@
         <!-- Precio total de la compra -->
         <div class="row separacioncarrito ms-0 me-1 ">
             <div class="col-4 col-sm-8 fondocarrito">
-            <p class=" totalcompra negrita" id="qwerty"></p>
+            <p class=" totalcompra negrita" id="puntosconseguidos"></p>
 
             </div>
             <div class="col-8 col-sm-4 row fondocarrito pt-1">
@@ -238,7 +230,9 @@
     }
     ?>
     </section>
+    <!-- llamada al JS para el local storage -->
     <script src="js/guardarLocalStorage.js"></script>
+    <!-- llamada al JS para la propina y los puntos -->
     <script src="js/propinaypuntos.js"></script>
 </body>
 </html>

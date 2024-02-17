@@ -12,40 +12,48 @@
 </head>
 
 <body>
-    <form class="container-sm CircularSTD">
-        <label>Usuario:</label>
-        <select id="usuario" name="usuario" required>
-            <option>Todos</option>
-            <option>Anonimo</option>
-            <option>Validado</option>
-        </select> 
-        
-        <label>Estrellas:</label>
-        <input type="checkbox" id="e1" name="estrella" value="5">
-        <label for="e1">5</label>
-        <input type="checkbox" id="e2" name="estrella" value="4">
-        <label for="e2">4</label>
-        <input type="checkbox" id="e3" name="estrella" value="3">
-        <label for="e3">3</label>
-        <input type="checkbox" id="e4" name="estrella" value="2">
-        <label for="e4">2</label>
-        <input type="checkbox" id="e5" name="estrella" value="1 ">
-        <label for="e5">1</label>
+    <div class="row container-sm">
+        <div class="col-2"></div>
+        <form class=" CircularSTD col-8">
+            <!-- Filtro para filtrar por usuario validado o no -->
+            <label>Usuario:</label>
+            <select id="usuario" name="usuario" required>
+                <option>Todos</option>
+                <option>Anonimo</option>
+                <option>Validado</option>
+            </select> 
+            
+            <!-- Filtro para cantidad de estrellas en los comentarios -->
+            <label>Estrellas:</label>
+            <input type="checkbox" id="e1" name="estrella" value="5">
+            <label for="e1">5</label>
+            <input type="checkbox" id="e2" name="estrella" value="4">
+            <label for="e2">4</label>
+            <input type="checkbox" id="e3" name="estrella" value="3">
+            <label for="e3">3</label>
+            <input type="checkbox" id="e4" name="estrella" value="2">
+            <label for="e4">2</label>
+            <input type="checkbox" id="e5" name="estrella" value="1 ">
+            <label for="e5">1</label>
 
-        <label>Orden:</label>
-        <input type="radio" id="ascendente" name="orden" value="ascendente" checked>
-        <label for="ascendente">Ascendente</label>
-        <input type="radio" id="descendente" name="orden" value="descendente" >
-        <label for="descendente">Descendente</label>
+            <!-- filtro para ordenar ascendente y descendente -->
+            <label>Orden:</label>
+            <input type="radio" id="ascendente" name="orden" value="ascendente">
+            <label for="ascendente">Ascendente</label>
+            <input type="radio" id="descendente" name="orden" value="descendente" >
+            <label for="descendente">Descendente</label>
+        </form>
 
-    </form>
+        <form action="<?=url.'?controller=comentario&action=añadircomentario'?>" method="post" class="col-2">
+            <!-- Boton para ir a la pagina de añadir comentarios -->
+            <button class="botonproducto ms-5" type="submit" name="registrar">Añadir comentarios</button>
+        </form>
 
-    <section id="contenedor" class="container-sm CircularSTD mt-3"></section>
-    <!-- Botones de volver atrás y registrarse -->
-    <form action="<?=url.'?controller=comentario&action=añadircomentario'?>" method="post" class="row justify-content-center separacionsecundaria">
-        <a class="botonproducto" href="<?=url.'?controller=usuario&action=login'?>">Volver</a>
-        <button class="botonproducto ms-5" type="submit" name="registrar">Añadir comentarios</button>
-    </form>
+    </div>
+    
+
+    <section id="contenedor" class="container-sm CircularSTD separacionprincipal"></section>
+    <!-- llamada al JS para mostrar los comentarios -->
     <script src="js/mostrarcomentarios.js"></script>
     
     

@@ -12,6 +12,7 @@
 </head>
 
 <body>
+    <!-- Filtros para la comida -->
 <form class="container-sm CircularSTD">
         <label>Que quieres comer:</label>
         <input type="checkbox" id="Bocadillo_frio" value="Bocadillo_frio" >
@@ -28,7 +29,8 @@
         <label for="Hamburgesa_pollo">Hamburgesa pollo</label>
         <input type="checkbox" id="Hamburgesa_vegetal" value="Hamburgesa_vegetal">
         <label for="Hamburgesa_vegetal">Hamburgesa vegetal</label>
-    </form>    
+    </form>
+    <!-- Filtros para la bebida -->
     <form class="container-sm CircularSTD">
         <label>Que quieres beber:</label>
         <input type="checkbox" id="Bebida_con_gas" value="Bebida_con_gas">
@@ -92,6 +94,7 @@
             ?>
         </div>
     </section>
+    <!-- llamada al JS para los filtros de los productos -->
     <script src="js/mostrarproductos.js"></script>
 
 

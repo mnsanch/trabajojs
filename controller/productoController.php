@@ -13,7 +13,7 @@ include_once 'utils/precios.php';
 class productoController
 {
 
-    public function index()
+    public static  function index()
     {
         //Llamo al modelo para obtener los datos
 

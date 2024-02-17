@@ -12,110 +12,145 @@ include_once 'modelo/ComentarioDAO.php';
 class APIController{    
  
         public function mostrarcomentarios(){
-            // Si quieres devolverle información al JS, codificas en json un array con la información
-            // y se los devuelves al JS
+            // Se llama al comentarioDAO para conseguir todos los comentarios
             $comentarios = ComentarioDAO::mostrarcomentarios();
 
+            // Pasamos los comentarios por JSON al JS
             echo json_encode($comentarios, JSON_UNESCAPED_UNICODE) ; 
 
-            return; //return para salir de la funcion
+            //return para salir de la funcion
+            return; 
         }
 
         public function mostrarcomentariosanonimos(){
-            // Si quieres devolverle información al JS, codificas en json un array con la información
-            // y se los devuelves al JS
+            // Se llama al comentarioDAO para conseguir todos los comentarios creados por usuarios anonimos
             $comentarios = ComentarioDAO::mostrarcomentariosanonimos();
 
+            // Pasamos los comentarios por JSON al JS
             echo json_encode($comentarios, JSON_UNESCAPED_UNICODE) ; 
 
-            return; //return para salir de la funcion
+            //return para salir de la funcion
+            return; 
         }
 
         public function mostrarcomentariosvalidados(){
-            // Si quieres devolverle información al JS, codificas en json un array con la información
-            // y se los devuelves al JS
+            // Se llama al comentarioDAO para conseguir todos los comentarios creados por usuarios validados
             $comentarios = ComentarioDAO::mostrarcomentariosvalidados();
 
+            // Pasamos los comentarios por JSON al JS
             echo json_encode($comentarios, JSON_UNESCAPED_UNICODE) ; 
 
-            return; //return para salir de la funcion
+            //return para salir de la funcion
+            return; 
         }
 
         public function añadircomentarios(){
-                // Si quieres devolverle información al JS, codificas en json un array con la información
-                // y se los devuelves al JS
-                $json = file_get_contents('php://input');
+            // Recibimos los datos del JS
+            $json = file_get_contents('php://input');
 
-                    // Decodificar el JSON a un array asociativo de PHP
-                $datos = json_decode($json, true);
+            // Descodificamos el JSON
+            $datos = json_decode($json, true);
 
-                // Obtener el precio del array asociativo
-                $nombre = $datos['nombre'];
-                $comentario = $datos['comentario'];
-                $valoracion = $datos['valoracion'];
-                ComentarioDAO::guardarcomentarioo($nombre, $comentario, $valoracion);
+            // Guardamos los datos que recibimos por JSON en variables
+            $nombre = $datos['nombre'];
+            $comentario = $datos['comentario'];
+            $valoracion = $datos['valoracion'];
 
-                return; //return para salir de la funcion
+            // Usamos el comentarioDAO para guradar los comentarios en la base de datos
+            ComentarioDAO::guardarcomentarioo($nombre, $comentario, $valoracion);
+
+            //return para salir de la funcion
+            return; 
         }
 
 
         public function datosultimopedido() {
-                $pedidos = $_SESSION['selecciones'];
-                $array = [];
+            // Guardamos en pedidos la array de selecciones que es lo que se usa en la cesta
+            $pedidos = $_SESSION['selecciones'];
+
+            // Creamos una array vacia
+            $array = [];
             
-                foreach ($pedidos as $pedido) {
+            // Hacemos un bucle de pedidos para guardar sus valores en la array creada para hacer un array asociativo
+            foreach ($pedidos as $pedido) {
             
-                    $array[] = [
-                        'ID_Producto' => $pedido->getProducto()->getIDProducto(),
-                        'ID_Categoria_Producto' => $pedido->getProducto()->getIDCategoriaProducto(),
-                        'Nombre_Producto' => $pedido->getProducto()->getNombreProducto(),
-                        'Precio_Producto' => $pedido->getProducto()->getPrecioProducto(),
-                        'Imagen_Producto' => $pedido->getProducto()->getImagenProducto(),
-                        'Descripcion' => $pedido->getProducto()->getDescripcion(),
-                        'cantidad' => $pedido->getCantidad(),
-                    ];
-                }
+                $array[] = [
+                    'ID_Producto' => $pedido->getProducto()->getIDProducto(),
+                    'ID_Categoria_Producto' => $pedido->getProducto()->getIDCategoriaProducto(),
+                    'Nombre_Producto' => $pedido->getProducto()->getNombreProducto(),
+                    'Precio_Producto' => $pedido->getProducto()->getPrecioProducto(),
+                    'Imagen_Producto' => $pedido->getProducto()->getImagenProducto(),
+                    'Descripcion' => $pedido->getProducto()->getDescripcion(),
+                    'cantidad' => $pedido->getCantidad(),
+                ];
+            }
             
-                echo json_encode($array, JSON_UNESCAPED_UNICODE);
-                return;
+            // Pasamos la array por JSON al JS
+            echo json_encode($array, JSON_UNESCAPED_UNICODE);
+            return;
         }
         public function comprar(){
-            // Si quieres devolverle información al JS, codificas en json un array con la información
-            // y se los devuelves al JS
+            // Recibimos los datos del JS
             $json = file_get_contents('php://input');
 
-                    // Decodificar el JSON a un array asociativo de PHP
+            // Descodificamos el JSON
             $datos = json_decode($json, true);
 
-            // Obtener el precio del array asociativo
+            // Guardamos los datos que recibimos por JSON en variables
             $precio = $datos['total'];
             $propina = $datos['propina'];
             $puntos = $datos['puntos'];
             $puntosantiguos = $datos['puntostotales'];
-            $puntostotales = $puntosantiguos-$puntos;
+            $puntosconseguidos = $datos['puntosconseguidos'];
+            // Hacemos un calculo para ver cuantos puntos tiene el usuario al restarle los gastados y sumarle los recibidos
+            $puntostotales = $puntosantiguos-$puntos+$puntosconseguidos;
+
+            // Usamos UsuarioDAO para modificar los puntos que tiene el  usuario despues de la compra 
+			UsuarioDAO::modificarpuntos($puntostotales, $_SESSION['idusuario']);
+
+            // Usamos PedidosUsuarioDAO para guardar en el pedido con el precio y la propina
             PedidosUsuarioDAO::guardarpedido($precio, $propina);
-            UsuarioDAO::modificarpuntos($puntostotales, $_SESSION['idusuario']);
-
-
-            return; //return para salir de la funcion
+ 
+            //return para salir de la funcion
+            return; 
         }
 
     public function preciototal(){
-        // Si quieres devolverle información al JS, codificas en json un array con la información
-        // y se los devuelves al JS
+        // Guardamos en precio la llamada a Calcularprecios para conseguir el precio total de la cesta actual 
         $precio=Calcularprecios::calcularpreciofinal($_SESSION['selecciones']);
 
+        // Pasamos el precio por JSON al JS
         echo json_encode($precio, JSON_UNESCAPED_UNICODE) ; 
 
-        return; //return para salir de la funcion
+        //return para salir de la funcion
+        return; 
     }
 
     public function cogerpuntosusuario(){
+        // Guardamos en puntos la llamada a UsuarioDAO para conseguir los puntos del usuario actual 
         $puntos=UsuarioDAO::cogerpuntosusuario($_SESSION['idusuario']);
 
+        // Pasamos los puntos por JSON al JS
         echo json_encode($puntos, JSON_UNESCAPED_UNICODE) ; 
 
-        return; //return para salir de la funcion
+        //return para salir de la funcion
+        return; 
+
+    }
+
+    public function cogernombreusuario(){
+        // Guardamos en puntos la llamada a UsuarioDAO para conseguir los puntos del usuario actual 
+        if (isset($_SESSION['nombre'])) {
+            $nombreusuario=$_SESSION['nombre'];
+        }else{
+            $nombreusuario= false;
+        }
+
+        // Pasamos los puntos por JSON al JS
+        echo json_encode($nombreusuario, JSON_UNESCAPED_UNICODE) ; 
+
+        //return para salir de la funcion
+        return; 
 
     }
             

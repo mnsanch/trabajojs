@@ -25,6 +25,7 @@
                 </div>
             </div>
     </section>
+    <!-- llamada al JS para el qr -->
     <script src="js/qr.js"></script>
 </body>
 </html>
